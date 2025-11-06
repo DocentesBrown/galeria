@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte para 5to Año</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Personalización de la fuente Inter (por defecto en Tailwind) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7; /* Fondo claro */
+        }
+        /* Estilos para el modal de visualización de la imagen */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .gallery-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <header class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-3 tracking-tight">
+            Exposición Didáctica para 5to
+        </h1>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+            Bienvenido a la galería de muestra. Haga clic en cualquier obra para verla en detalle. (Y sí, es contenido docente, pero con un buen marco, ¡todo es arte!)
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+        <div id="art-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="gallery-card bg-white rounded-xl overflow-hidden shadow-lg" 
+                 onclick="openModal('1.png', 'Estructuras de Exhibición', 'Un análisis tipográfico de las jerarquías de información y el uso del color en la comunicación.')">
+                <img src="1.png" alt="Obra 1" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/400x300/a3e635/000?text=IMAGEN+NO+DISPONIBLE'">
+                <div class="p-5">
+                    <h3 class="text-2xl font-semibold text-gray-700">Estructuras de Exhibición</h3>
+                    <p class="text-sm text-gray-500 mt-1">Autor/a: Docentes Brown</p>
+                </div>
+            </div>
+
+            <div class="gallery-card bg-white rounded-xl overflow-hidden shadow-lg" 
+                 onclick="openModal('2.png', 'Instrucciones: Reclamo Procesal', 'Estudio sobre la representación visual de procesos burocráticos y la línea de tiempo. Enfocado en la comunicación de instructivos.')">
+                <img src="2.png" alt="Obra 2" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/400x300/fbbf24/000?text=IMAGEN+NO+DISPONIBLE'">
+                <div class="p-5">
+                    <h3 class="text-2xl font-semibold text-gray-700">Instrucciones: Reclamo Procesal</h3>
+                    <p class="text-sm text-gray-500 mt-1">Autor/a: Docentes Brown</p>
+                </div>
+            </div>
+
+            <div class="gallery-card bg-white rounded-xl overflow-hidden shadow-lg" 
+                 onclick="openModal('3.png', 'Composición del Correo', 'Una obra que simplifica la organización de la información crítica mediante bloques de texto y tipografía en contraste.')">
+                <img src="3.png" alt="Obra 3" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/400x300/60a5fa/000?text=IMAGEN+NO+DISPONIBLE'">
+                <div class="p-5">
+                    <h3 class="text-2xl font-semibold text-gray-700">Composición del Correo</h3>
+                    <p class="text-sm text-gray-500 mt-1">Autor/a: Docentes Brown</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="image-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 opacity-0 pointer-events-none" 
+         onclick="closeModal()">
+        
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full p-6 mx-4" onclick="event.stopPropagation()">
+            <div class="flex justify-end mb-4">
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition duration-150 text-3xl font-light">
+                    &times;
+                </button>
+            </div>
+            
+            <div class="md:flex md:space-x-6">
+                <div class="md:w-2/3 flex justify-center items-center bg-gray-100 rounded-lg p-2">
+                    <img id="modal-image" src="" alt="Imagen ampliada" class="max-h-[70vh] w-auto object-contain rounded-lg">
+                </div>
+                
+                <div class="md:w-1/3 pt-4 md:pt-0">
+                    <h2 id="modal-title" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+                    <p id="modal-artist" class="text-lg text-gray-600 mb-4 border-b pb-2">Autor/a: Docentes Brown</p>
+                    <p id="modal-description" class="text-gray-700 text-base leading-relaxed"></p>
+                    
+                    <div class="mt-8 p-3 bg-indigo-50 rounded-lg">
+                        <p class="text-indigo-700 font-semibold">Uso Didáctico:</p>
+                        <p class="text-sm text-indigo-600">Perfecto para analizar composición, jerarquía visual y comunicación efectiva en medios digitales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function openModal(imagePath, title, description) {
+            const modal = document.getElementById('image-modal');
+            document.getElementById('modal-image').src = imagePath;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-description').textContent = description;
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Manejar el cierre del modal con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
